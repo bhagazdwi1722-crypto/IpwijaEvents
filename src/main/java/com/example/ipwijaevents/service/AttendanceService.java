@@ -15,19 +15,19 @@ public class AttendanceService {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
-    public Attendance save(Attendance attendance){
+    public Attendance save(Attendance attendance) {
         return attendanceRepository.save(attendance);
     }
 
-    public List<Attendance> findAll(){
+    public List<Attendance> findAll() {
         return attendanceRepository.findAll();
     }
 
-    public Optional<Attendance> findById(Long id){
+    public Optional<Attendance> findById(Long id) {
         return attendanceRepository.findById(id);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         attendanceRepository.deleteById(id);
     }
 

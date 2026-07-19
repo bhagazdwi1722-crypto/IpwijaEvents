@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ganesha Event Connect — Dashboard</title>
+  <title>Ipwija Events — Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
@@ -25,19 +25,25 @@
     <div class="main">
       <header class="topbar">
         <div class="search-box">
-          <i class="ti ti-search"></i>
+          <i class="bi bi-search"></i>
           <input type="text" placeholder="Cari event, workshop, atau seminar...">
         </div>
         <div class="top-actions">
-          <div class="icon-btn"><i class="ti ti-bell"></i><span class="dot"></span></div>
-          <div class="icon-btn"><i class="ti ti-message-circle"></i><span class="dot"></span></div>
+          <div class="icon-btn"><i class="bi bi-bell-fill"></i><span class="dot"></span></div>
+          <div class="icon-btn"><i class="bi bi-chat-dots-fill"></i><span class="dot"></span></div>
           <div class="profile-chip">
             <div class="avatar"></div>
+
             <div>
-              <div class="pname">Adi Pratama</div>
-              <div class="prole">Mahasiswa</div>
+              <div class="pname" th:text="${currentUser.nama}">
+              </div>
+
+              <div class="prole" th:text="${currentUser.role}">
+              </div>
             </div>
-            <i class="ti ti-chevron-down" style="font-size:14px; color:var(--text-muted);"></i>
+
+            <i class="bi bi-chevron-down" style="font-size:14px; color:var(--text-muted);">
+            </i>
           </div>
         </div>
       </header>
@@ -67,7 +73,10 @@
             </g>
           </svg>
           <div class="greeting-text">
-            <h1>Halo, Adi Pratama 👋</h1>
+            <h1>
+              Halo,
+              <span th:text="${currentUser.nama}"></span> 👋
+            </h1>
             <p>
               Saat ini tersedia
               <strong th:text="${totalEvents}">0</strong>
@@ -107,9 +116,10 @@
                 <circle cx="42" cy="55" r="12" />
               </g>
             </svg>
-            <div class="stat-icon icon-blue"><i class="ti ti-calendar-event"></i></div>
+            <div class="stat-icon icon-blue"><i class="bi bi-calendar-event-fill"></i></div>
             <div>
-              <div class="value">12</div>
+              <div class="value" th:text="${totalRegistrations}">
+              </div>
               <div class="label">Event terdaftar</div>
             </div>
             <div class="trend up"><i class="ti ti-arrow-up-right"></i> 2 baru bulan ini</div>
@@ -122,12 +132,13 @@
                 <circle cx="42" cy="55" r="12" />
               </g>
             </svg>
-            <div class="stat-icon icon-green"><i class="ti ti-checkbox"></i></div>
+            <div class="stat-icon icon-green"><i class="bi bi-check2-circle"></i></div>
             <div>
-              <div class="value">8</div>
+              <div class="value" th:text="${totalFinished}">
+              </div>
               <div class="label">Event selesai</div>
             </div>
-            <div class="trend up"><i class="ti ti-arrow-up-right"></i> 67% tingkat selesai</div>
+            <div class="trend up"><i class="bi bi-arrow-up-right"></i> 67% tingkat selesai</div>
           </div>
           <div class="stat-card">
             <svg class="batik-corner" viewBox="0 0 100 100">
@@ -137,12 +148,13 @@
                 <circle cx="42" cy="55" r="12" />
               </g>
             </svg>
-            <div class="stat-icon icon-gold"><i class="ti ti-certificate"></i></div>
+            <div class="stat-icon icon-gold"><i class="bi bi-award-fill"></i></i></div>
             <div>
-              <div class="value">5</div>
+              <div class="value" th:text="${totalCertificates}">
+              </div>
               <div class="label">Sertifikat dimiliki</div>
             </div>
-            <div class="trend up"><i class="ti ti-arrow-up-right"></i> 1 menunggu unduh</div>
+            <div class="trend up"><i class="bi bi-arrow-up-right"></i> 1 menunggu unduh</div>
           </div>
           <div class="stat-card">
             <svg class="batik-corner" viewBox="0 0 100 100">
@@ -152,12 +164,13 @@
                 <circle cx="42" cy="55" r="12" />
               </g>
             </svg>
-            <div class="stat-icon icon-amber"><i class="ti ti-clipboard-check"></i></div>
+            <div class="stat-icon icon-amber"><i class="bi bi-clipboard-check"></i></div>
             <div>
-              <div class="value">21</div>
+              <div class="value" th:text="${totalCertificates}">
+              </div>
               <div class="label">Total absensi</div>
             </div>
-            <div class="trend up"><i class="ti ti-arrow-up-right"></i> Kehadiran 95%</div>
+            <div class="trend up"><i class="bi bi-arrow-up-right"></i> Kehadiran 95%</div>
           </div>
         </section>
 
@@ -167,89 +180,194 @@
 
             <!-- EVENT MENDATANG -->
             <div class="panel">
+
               <div class="panel-head">
-                <h2>Event mendatang</h2><span class="link" th:onclick="|window.location.href='@{/calendar}'|">
-                  Lihat semua
+                <h2>Event Mendatang</h2>
+
+                <span class="link" th:onclick="|window.location.href='@{/my-events}'|">
+                  Lihat Semua
                 </span>
               </div>
 
-              <div class="event-row">
-                <div class="event-thumb"><i class="ti ti-code"></i></div>
-                <div class="event-info">
-                  <h3>Workshop Web Development Modern</h3>
-                  <div class="event-meta">
-                    <span><i class="ti ti-calendar"></i> 14 Jul 2026, 09.00</span>
-                    <span><i class="ti ti-map-pin"></i> Aula Gedung Rektorat</span>
-                  </div>
+              <div class="event-row" th:each="registration : ${upcomingEvents}">
+
+                <div class="event-thumb">
+
+                  <img th:if="${registration.event.poster != null}"
+                    th:src="@{'/uploads/poster/' + ${registration.event.poster}}" alt="Poster Event">
+
+                  <i class="bi bi-calendar-event-fill" th:if="${registration.event.poster == null}"></i>
+
                 </div>
-                <span class="badge terdaftar">Terdaftar</span>
+
+                <div class="event-info">
+
+                  <h3 th:text="${registration.event.namaEvent}">
+                    Nama Event
+                  </h3>
+
+                  <div class="event-meta">
+
+                    <span>
+                      <i class="bi bi-calendar"></i>
+
+                      <span th:text="${#temporals.format(registration.event.tanggal,'dd MMM yyyy')}"></span>
+
+                      |
+
+                      <span th:text="${registration.event.jamMulai}"></span>
+
+                    </span>
+
+                    <span>
+                      <i class="bi bi-map-pin"></i>
+
+                      <span th:text="${registration.event.lokasi}"></span>
+                    </span>
+
+                  </div>
+
+                </div>
+
+                <span class="badge" th:text="${registration.status}" th:classappend="${registration.status == 'TERDAFTAR'} ? ' terdaftar'
+                              : (${registration.status == 'MENUNGGU'} ? ' menunggu'
+                              : ' selesai')">
+                </span>
+
               </div>
 
-              <div class="event-row">
-                <div class="event-thumb alt"><i class="ti ti-presentation"></i></div>
-                <div class="event-info">
-                  <h3>Seminar Nasional Kewirausahaan Digital</h3>
-                  <div class="event-meta">
-                    <span><i class="ti ti-calendar"></i> 18 Jul 2026, 13.00</span>
-                    <span><i class="ti ti-map-pin"></i> Auditorium Kampus 2</span>
-                  </div>
-                </div>
-                <span class="badge menunggu">Menunggu</span>
+              <!-- Jika belum ada event -->
+
+              <div class="empty-state" th:if="${#lists.isEmpty(upcomingEvents)}">
+
+                <i class="bi bi-calendar-x"></i>
+
+                <p>Belum ada event yang akan datang.</p>
+
               </div>
 
-              <div class="event-row">
-                <div class="event-thumb alt2"><i class="ti ti-users-group"></i></div>
-                <div class="event-info">
-                  <h3>Leadership Camp Organisasi Mahasiswa</h3>
-                  <div class="event-meta">
-                    <span><i class="ti ti-calendar"></i> 2 Jul 2026, 08.00</span>
-                    <span><i class="ti ti-map-pin"></i> Villa Training Center</span>
-                  </div>
-                </div>
-                <span class="badge selesai">Selesai</span>
-              </div>
             </div>
 
             <!-- RINGKASAN EVENT SAYA -->
             <div class="panel">
+
               <div class="panel-head">
-                <h2>Ringkasan event saya</h2><span class="link">Detail</span>
+                <h2>Ringkasan Event Saya</h2>
+
+                <span class="link" th:onclick="|window.location.href='@{/my-events}'|">
+                  Detail
+                </span>
               </div>
+
               <div class="summary-grid">
+
                 <div class="summary-box">
-                  <div class="num">12</div>
-                  <div class="lbl">Terdaftar</div>
+                  <div class="num" th:text="${totalRegistrations}">
+                    0
+                  </div>
+
+                  <div class="lbl">
+                    Terdaftar
+                  </div>
                 </div>
+
                 <div class="summary-box">
-                  <div class="num">8</div>
-                  <div class="lbl">Selesai</div>
+                  <div class="num" th:text="${totalFinished}">
+                    0
+                  </div>
+
+                  <div class="lbl">
+                    Selesai
+                  </div>
                 </div>
+
                 <div class="summary-box">
-                  <div class="num">4</div>
-                  <div class="lbl">Berlangsung</div>
+                  <div class="num" th:text="${totalOngoing}">
+                    0
+                  </div>
+
+                  <div class="lbl">
+                    Berlangsung
+                  </div>
                 </div>
+
               </div>
+
+              <!-- Workshop -->
+
               <div class="progress-item">
-                <div class="progress-top"><span class="pname">Workshop &amp; pelatihan</span><span
-                    class="pct">80%</span></div>
-                <div class="progress-track">
-                  <div class="progress-fill" style="width:80%;"></div>
+
+                <div class="progress-top">
+
+                  <span class="pname">
+                    Workshop & Pelatihan
+                  </span>
+
+                  <span class="pct" th:text="${workshopPercent + '%'}">
+                    0%
+                  </span>
+
                 </div>
+
+                <div class="progress-track">
+
+                  <div class="progress-fill" th:style="'width:' + ${workshopPercent} + '%'">
+                  </div>
+
+                </div>
+
               </div>
+
+              <!-- Seminar -->
+
               <div class="progress-item">
-                <div class="progress-top"><span class="pname">Seminar &amp; kuliah umum</span><span
-                    class="pct">55%</span></div>
-                <div class="progress-track">
-                  <div class="progress-fill" style="width:55%;"></div>
+
+                <div class="progress-top">
+
+                  <span class="pname">
+                    Seminar & Kuliah Umum
+                  </span>
+
+                  <span class="pct" th:text="${seminarPercent + '%'}">
+                    0%
+                  </span>
+
                 </div>
+
+                <div class="progress-track">
+
+                  <div class="progress-fill" th:style="'width:' + ${seminarPercent} + '%'">
+                  </div>
+
+                </div>
+
               </div>
+
+              <!-- Organisasi -->
+
               <div class="progress-item">
-                <div class="progress-top"><span class="pname">Organisasi &amp; kepemimpinan</span><span
-                    class="pct">40%</span></div>
-                <div class="progress-track">
-                  <div class="progress-fill" style="width:40%;"></div>
+
+                <div class="progress-top">
+
+                  <span class="pname">
+                    Organisasi & Kepemimpinan
+                  </span>
+
+                  <span class="pct" th:text="${organizationPercent + '%'}">
+                    0%
+                  </span>
+
                 </div>
+
+                <div class="progress-track">
+
+                  <div class="progress-fill" th:style="'width:' + ${organizationPercent} + '%'">
+                  </div>
+
+                </div>
+
               </div>
+
             </div>
 
           </div>
@@ -314,6 +432,7 @@
 
             <!-- PROFILE -->
             <div class="panel profile-card">
+
               <svg class="batik-side" viewBox="0 0 100 100">
                 <g fill="none" stroke="#0A1533" stroke-width="1.5">
                   <circle cx="20" cy="20" r="14" />
@@ -321,40 +440,113 @@
                   <circle cx="38" cy="52" r="14" />
                 </g>
               </svg>
-              <div class="profile-photo">AP</div>
-              <h3>Adi Pratama</h3>
-              <div class="pmail">adi.pratama@mhs.ganesha.ac.id</div>
-              <div class="profile-detail">
-                <div class="pd-row"><span class="k">NIM</span><span class="v">220102045</span></div>
-                <div class="pd-row"><span class="k">Program studi</span><span class="v">Teknik Informatika</span></div>
-                <div class="pd-row"><span class="k">Kelas</span><span class="v">TI-3B</span></div>
+
+              <!-- Avatar -->
+              <div class="profile-photo" th:text="${#strings.substring(currentUser.nama,0,1)}">
+                A
               </div>
-              <span class="role-chip">Mahasiswa aktif</span>
+
+              <!-- Nama -->
+              <h3 th:text="${currentUser.nama}">
+                Adi Pratama
+              </h3>
+
+              <!-- Email -->
+              <div class="pmail" th:text="${currentUser.email}">
+                adi.pratama@mhs.ganesha.ac.id
+              </div>
+
+              <div class="profile-detail">
+
+                <div class="pd-row">
+                  <span class="k">NIM</span>
+                  <span class="v" th:text="${currentUser.nim}">
+                    220102045
+                  </span>
+                </div>
+
+                <div class="pd-row">
+                  <span class="k">Program Studi</span>
+                  <span class="v" th:text="${currentUser.prodi}">
+                    Teknik Informatika
+                  </span>
+                </div>
+
+                <div class="pd-row">
+                  <span class="k">Kelas</span>
+                  <span class="v" th:text="${currentUser.kelas}">
+                    TI-3B
+                  </span>
+                </div>
+
+              </div>
+
+              <span class="role-chip" th:text="${currentUser.role == 'ADMIN'} ? 'Administrator' : 'Mahasiswa Aktif'">
+                Mahasiswa Aktif
+              </span>
+
             </div>
 
             <!-- NOTIFICATIONS -->
             <div class="panel">
+
               <div class="panel-head">
-                <h2>Notifikasi terbaru</h2><span class="link">Semua</span>
+                <h2>
+                  Notifikasi Terbaru
+                  <span th:if="${notificationCount > 0}">
+                    (<span th:text="${notificationCount}"></span>)
+                  </span>
+                </h2>
+
+                <span class="link">Semua</span>
               </div>
-              <div class="notif-item">
-                <div class="notif-dot icon-blue"><i class="ti ti-calendar-plus"></i></div>
-                <div class="notif-text">
-                  <p>Registrasi Seminar Kewirausahaan dibuka</p><span>10 menit lalu</span>
+
+              <div class="notif-item" th:each="notif : ${notifications}">
+
+                <div class="notif-dot icon-blue">
+                  <i class="bi bi-bell-fill"></i>
+                  <span class="notif-count" th:text="${notificationCount}" th:if="${notificationCount > 0}"></span>
                 </div>
-              </div>
-              <div class="notif-item">
-                <div class="notif-dot icon-green"><i class="ti ti-certificate"></i></div>
+
                 <div class="notif-text">
-                  <p>Sertifikat Leadership Camp siap diunduh</p><span>2 jam lalu</span>
+
+                  <h4 th:text="${notif.judul}">
+                    Pendaftaran Event Berhasil
+                  </h4>
+
+                  <div class="notif-detail">
+
+                    <p class="notif-message">
+                      Anda berhasil mendaftar pada event
+                      <strong th:text="${notif.event.namaEvent}">
+                      </strong>
+                    </p>
+
+                    <div class="detail-row">
+                      <span class="label">Status</span>
+
+                      <span class="badge-status" th:text="${notif.event != null ? 'MENUNGGU' : '-'}">
+                      </span>
+                    </div>
+
+                  </div>
+
+                  <span class="notif-time"
+                    th:text="${T(com.example.ipwijaevents.util.TimeAgoUtil).timeAgo(notif.waktu)}">
+                  </span>
+
                 </div>
+
               </div>
-              <div class="notif-item">
-                <div class="notif-dot icon-amber"><i class="ti ti-qrcode"></i></div>
-                <div class="notif-text">
-                  <p>Gerbang absen Workshop Web Dev dibuka</p><span>Kemarin</span>
-                </div>
+
+              <div th:if="${#lists.isEmpty(notifications)}" class="empty-state">
+
+                <i class="bi bi-bell-slash"></i>
+
+                <p>Belum ada notifikasi.</p>
+
               </div>
+
             </div>
 
           </div>

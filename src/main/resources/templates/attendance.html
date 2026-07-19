@@ -4,20 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi - Ganesha Event Connect</title>
+    <title>Absensi - Ipwija Events</title>
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
+        rel="stylesheet">
 
-    <!-- Tabler Icons -->
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/absen.css">
     <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 
@@ -25,47 +24,14 @@
 
 <div class="app">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div th:replace="fragments/sidebar :: sidebar"></div>
     </aside>
 
-    <!-- MAIN -->
     <div class="main">
 
-        <!-- TOPBAR -->
-        <header class="topbar">
-            <div class="search-box">
-                <i class="ti ti-search"></i>
-                <input type="text"
-                       placeholder="Cari riwayat absensi...">
-            </div>
-
-            <div class="top-actions">
-                <div class="icon-btn">
-                    <i class="ti ti-bell"></i>
-                    <span class="dot"></span>
-                </div>
-
-                <div class="profile-chip">
-                    <div class="avatar"></div>
-
-                    <div>
-                        <div class="pname">Adi Pratama</div>
-                        <div class="prole">Mahasiswa</div>
-                    </div>
-
-                    <i class="ti ti-chevron-down"
-                       style="font-size:14px;color:var(--text-muted);">
-                    </i>
-                </div>
-            </div>
-        </header>
-
-        <!-- CONTENT -->
         <main class="content">
 
-            <!-- TITLE -->
             <div class="page-title">
                 <h2>Absensi</h2>
                 <p>
@@ -73,56 +39,100 @@
                 </p>
             </div>
 
-            <!-- EVENT SEDANG BERLANGSUNG -->
             <div class="panel">
 
                 <div class="panel-head">
-                    <h2>Event Sedang Berlangsung</h2>
+                    <h2>Event yang Belum Diabsen</h2>
                 </div>
 
-                <div class="event-row">
+                <div th:if="${#lists.isEmpty(pendingRegistrations)}">
 
-                    <div class="event-thumb">
-                        <i class="ti ti-qrcode"></i>
+                    <div class="empty-state">
+
+                        <i class="ti ti-calendar-off"></i>
+
+                        <h3>Belum ada event baru yang diikuti</h3>
+
+                        <p>
+                            Semua event yang Anda ikuti sudah selesai dihadiri.
+                        </p>
+
                     </div>
 
-                    <div class="event-info">
-                        <h3>Workshop UI/UX Design</h3>
+                </div>
 
-                        <div class="event-meta">
-                            <span>
-                                <i class="ti ti-calendar"></i>
-                                15 Juli 2026
-                            </span>
+                <div th:unless="${#lists.isEmpty(pendingRegistrations)}">
 
-                            <span>
-                                <i class="ti ti-clock"></i>
-                                08.00 WIB
-                            </span>
+                    <div class="event-row"
+                         th:each="reg : ${pendingRegistrations}">
 
-                            <span>
-                                <i class="ti ti-map-pin"></i>
-                                Zoom Meeting
-                            </span>
+                        <div class="event-thumb">
+
+                            <img th:if="${reg.event.poster != null and !#strings.isEmpty(reg.event.poster)}"
+                                 th:src="@{'/uploads/poster/' + ${reg.event.poster}}"
+                                 th:alt="${reg.event.namaEvent}">
+
+                            <img th:if="${reg.event.poster == null or #strings.isEmpty(reg.event.poster)}"
+                                 src="https://placehold.co/120x120?text=No+Image"
+                                 alt="Poster Default">
+
                         </div>
-                    </div>
 
-                    <button class="primary"
-                            onclick="window.location.href='/attendance/scan'">
-                        <i class="ti ti-qrcode"></i>
-                        Scan QR
-                    </button>
+                        <div class="event-info">
+
+                            <h3 th:text="${reg.event.namaEvent}"></h3>
+
+                            <div class="event-meta">
+
+                                <span>
+                                    <i class="ti ti-calendar"></i>
+                                    <span th:text="${#temporals.format(reg.event.tanggal,'dd MMM yyyy')}"></span>
+                                </span>
+
+                                <span>
+                                    <i class="ti ti-clock"></i>
+
+                                    <span th:text="${#temporals.format(reg.event.jamMulai,'HH:mm')}"></span>
+
+                                    -
+
+                                    <span th:text="${#temporals.format(reg.event.jamSelesai,'HH:mm')}"></span>
+
+                                </span>
+
+                                <span>
+                                    <i class="ti ti-map-pin"></i>
+
+                                    <span th:text="${reg.event.lokasi}"></span>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <form th:action="@{/attendance/{id}(id=${reg.id})}"
+                              method="post">
+
+                            <button type="submit" class="primary">
+
+                                <i class="ti ti-check"></i>
+
+                                Absen Sekarang
+
+                            </button>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
             </div>
 
-            <!-- RIWAYAT KEHADIRAN -->
             <div class="panel">
 
                 <div class="panel-head">
                     <h2>Riwayat Kehadiran</h2>
-                    <span class="link">Lihat Semua</span>
                 </div>
 
                 <table class="table">
@@ -137,34 +147,42 @@
 
                     <tbody>
 
-                        <tr>
-                            <td>Workshop UI/UX Design</td>
-                            <td>15 Juli 2026</td>
-                            <td>
-                                <span class="status success">
-                                    Hadir
-                                </span>
+                        <tr th:if="${#lists.isEmpty(attendances)}">
+
+                            <td colspan="3" style="text-align:center">
+
+                                Belum ada riwayat absensi.
+
                             </td>
+
                         </tr>
 
-                        <tr>
-                            <td>Seminar Artificial Intelligence</td>
-                            <td>20 Juli 2026</td>
-                            <td>
-                                <span class="status danger">
-                                    Belum Absen
-                                </span>
-                            </td>
-                        </tr>
+                        <tr th:each="attendance : ${attendances}">
 
-                        <tr>
-                            <td>Leadership Camp Organisasi Mahasiswa</td>
-                            <td>25 Juli 2026</td>
-                            <td>
-                                <span class="status success">
-                                    Hadir
-                                </span>
+                            <td th:text="${attendance.registration.event.namaEvent}">
                             </td>
+
+                            <td th:text="${#temporals.format(attendance.registration.event.tanggal,'dd MMM yyyy')}">
+                            </td>
+
+                            <td>
+
+                                <span th:if="${attendance.hadir}"
+                                      class="status success">
+
+                                    Hadir
+
+                                </span>
+
+                                <span th:unless="${attendance.hadir}"
+                                      class="status danger">
+
+                                    Belum Hadir
+
+                                </span>
+
+                            </td>
+
                         </tr>
 
                     </tbody>

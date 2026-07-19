@@ -1,18 +1,138 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Event - Ipwija Events</title>
 
-<meta charset="UTF-8">
-
-<title>Register</title>
-
+    <link rel="stylesheet" th:href="@{/css/registration.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body>
+<body class="registration-container">
 
-<h1>REGISTER</h1>
+    <!-- Header -->
+    <div class="reg-header">
+        <div>
+            <h1>Formulir Pendaftaran Event</h1>
+            <p>Silakan konfirmasi keikutsertaan Anda di bawah ini.</p>
+        </div>
 
-<a href="/login">Login</a>
+        <a th:href="@{/events}" class="btn-back">
+            &larr; Kembali
+        </a>
+    </div>
+
+    <!-- Content -->
+    <div class="reg-grid">
+
+        <!-- Detail Event -->
+        <div class="card-left">
+
+            <div class="badge-category">
+                <span th:text="${event.kategori}">Seminar</span>
+            </div>
+
+            <h2 class="event-title" th:text="${event.namaEvent}">
+                Nama Event
+            </h2>
+
+            <p class="event-desc" th:text="${event.deskripsi}">
+                Deskripsi Event
+            </p>
+
+            <div class="meta-grid">
+
+                <div>
+                    <span class="meta-label">Tanggal</span>
+
+                    <span class="meta-value" th:text="${#temporals.format(event.tanggal,'dd MMMM yyyy')}">
+                    </span>
+                </div>
+
+                <div>
+                    <span class="meta-label">Waktu</span>
+
+                    <span class="meta-value" th:text="${event.jamMulai + ' - ' + event.jamSelesai}">
+                    </span>
+                </div>
+
+                <div>
+                    <span class="meta-label">Lokasi</span>
+
+                    <span class="meta-value" th:text="${event.lokasi}">
+                    </span>
+                </div>
+
+                <div>
+                    <span class="meta-label">Biaya</span>
+
+                    <span class="meta-price"
+                        th:text="${event.harga == 0 ? 'GRATIS' : 'Rp ' + #numbers.formatDecimal(event.harga,0,'POINT',0,'COMMA')}">
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Konfirmasi -->
+        <div class="card-right">
+
+            <h3 class="section-title">
+                Konfirmasi Data
+            </h3>
+
+            <p class="section-desc">
+                Pendaftaran akan menggunakan data akun yang sedang login.
+            </p>
+
+            <div class="summary-box">
+
+                <div class="summary-row">
+                    <span class="summary-label">Nama</span>
+                    <span class="summary-value" th:text="${user.nama}"></span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">NIM</span>
+                    <span class="summary-value" th:text="${user.nim}"></span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Program Studi</span>
+                    <span class="summary-value" th:text="${user.prodi}"></span>
+                </div>
+
+                <div class="summary-row">
+                    <span class="summary-label">Benefit</span>
+                    <span class="summary-value" th:text="${event.benefit}"></span>
+                </div>
+
+            </div>
+
+            <form th:action="@{/registration}" method="post" class="form-action">
+
+                <input type="hidden" name="eventId" th:value="${event.id}">
+
+                <button class="btn-submit" type="submit">
+
+                    <span th:text="${event.harga == 0 ? 'Daftar Sekarang' : 'Daftar & Bayar'}">
+                    </span>
+
+                </button>
+
+                <p class="terms-text">
+                    Dengan mendaftar, Anda menyetujui syarat dan ketentuan event.
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

@@ -9,123 +9,119 @@
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
 
     <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/sidebar.css">
+
 </head>
 
 <body>
 
-    <div class="app">
+<div class="app">
 
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-            <div th:replace="fragments/sidebar :: sidebar"></div>
-        </aside>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div th:replace="fragments/sidebar :: sidebar"></div>
+    </aside>
 
-        <!-- MAIN -->
-        <div class="main">
+    <!-- MAIN -->
+    <div class="main">
 
-            <!-- TOPBAR -->
-            <header class="topbar">
+        <!-- CONTENT -->
+        <main class="content">
 
-                <div class="search-box">
-                    <i class="ti ti-search"></i>
-                    <input type="text" placeholder="Cari sertifikat...">
-                </div>
+            <div class="page-title">
+                <h2>Sertifikat</h2>
+                <p>Sertifikat yang berhasil Anda peroleh.</p>
+            </div>
 
-                <div class="top-actions">
+            <div class="certificate-container">
 
-                    <div class="icon-btn">
-                        <i class="ti ti-bell"></i>
-                        <span class="dot"></span>
-                    </div>
+                <!-- Empty State -->
+                <div class="empty-state"
+                     th:if="${#lists.isEmpty(certificates)}">
 
-                    <div class="profile-chip">
-                        <div class="avatar"></div>
+                    <i class="bi bi-award-fill"
+                       style="font-size:70px;color:#d1d5db;"></i>
 
-                        <div>
-                            <div class="pname">Adi Pratama</div>
-                            <div class="prole">Mahasiswa</div>
-                        </div>
+                    <h2>Belum Ada Sertifikat</h2>
 
-                        <i class="ti ti-chevron-down" style="font-size:14px;color:var(--text-muted);">
-                        </i>
-                    </div>
+                    <p>
+                        Selesaikan event terlebih dahulu agar sertifikat dapat diterbitkan.
+                    </p>
 
                 </div>
 
-            </header>
+                <!-- List Sertifikat -->
+                <div class="certificate-card"
+                     th:each="certificate : ${certificates}">
 
-            <!-- CONTENT -->
-            <main class="content">
-
-                <div class="page-title">
-                    <h2>Sertifikat</h2>
-                    <p>Sertifikat yang berhasil Anda peroleh.</p>
-                </div>
-
-                <div class="certificate-container">
-
-                    <div class="certificate-card">
-
-                        <div class="stat-icon icon-gold">
-                            <i class="ti ti-certificate"></i>
-                        </div>
-
-                        <h3>Workshop UI/UX Design</h3>
-
-                        <p>
-                            Sertifikat penyelesaian Workshop UI/UX Design.
-                        </p>
-
-                        <p class="certificate-date">
-                            📅 15 Juli 2026
-                        </p>
-
-                        <button class="btn" th:onclick="|window.location.href='@{/certificate/download/1}'|">
-                            <i class="ti ti-download"></i>
-                            Download Sertifikat
-                        </button>
-
+                    <div class="stat-icon icon-gold">
+                        <i class="bi bi-award-fill"></i>
                     </div>
 
-                    <div class="certificate-card">
+                    <h3 th:text="${certificate.registration.event.namaEvent}">
+                        Nama Event
+                    </h3>
 
-                        <div class="stat-icon icon-gold">
-                            <i class="ti ti-certificate"></i>
-                        </div>
+                    <p>
+                        Sertifikat penyelesaian
+                        <strong th:text="${certificate.registration.event.kategori}">
+                            Workshop
+                        </strong>
+                    </p>
 
-                        <h3>Bootcamp Web Development</h3>
+                    <p class="certificate-date">
 
-                        <p>
-                            Sertifikat penyelesaian Bootcamp Web Development.
-                        </p>
+                        <i class="bi bi-calendar-event-fill"></i>
 
-                        <p class="certificate-date">
-                            📅 28 Juli 2026
-                        </p>
+                        <span th:text="${#temporals.format(
+                                certificate.registration.event.tanggal,
+                                'dd MMMM yyyy')}">
+                        </span>
 
-                        <button class="btn" th:onclick="|window.location.href='@{/certificate/download/1}'|">
-                            <i class="ti ti-download"></i>
-                            Download Sertifikat
-                        </button>
+                    </p>
 
-                    </div>
+                    <p style="font-size:13px;color:#6b7280;">
+
+                        Nomor Sertifikat :
+
+                        <strong th:text="${certificate.nomorSertifikat}">
+                            CERT-001
+                        </strong>
+
+                    </p>
+
+                    <button class="btn"
+                            th:onclick="|window.location.href='@{/certificate/download/{id}(id=${certificate.id})}'|">
+
+                        <i class="bi bi-download"></i>
+
+                        Download Sertifikat
+
+                    </button>
 
                 </div>
 
-            </main>
+            </div>
 
-        </div>
+        </main>
 
     </div>
+
+</div>
 
 </body>
 

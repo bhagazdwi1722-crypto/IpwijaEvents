@@ -18,21 +18,17 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-
     // Halaman awal langsung ke login
     @GetMapping("/")
     public String home() {
         return "redirect:/login";
     }
 
-
     // Halaman login
     @GetMapping("/login")
     public String login() {
         return "login";
     }
-
-
 
     // Halaman register
     @GetMapping("/register")
@@ -43,24 +39,17 @@ public class AuthController {
         return "register";
     }
 
-
-
     // Simpan user baru
     @PostMapping("/register")
     public String saveUser(
             @ModelAttribute User user) {
 
-
         user.setRole("MAHASISWA");
-
 
         userService.save(user);
 
-
         return "redirect:/login";
     }
-
-
 
     // Fungsi Logout
     @GetMapping("/logout")

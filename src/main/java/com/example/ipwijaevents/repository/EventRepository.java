@@ -1,8 +1,16 @@
 package com.example.ipwijaevents.repository;
 
-import com.example.ipwijaevents.entity.Event;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EventRepository extends JpaRepository<Event,Long>{
+import com.example.ipwijaevents.entity.Event;
+
+public interface EventRepository extends JpaRepository<Event, Long> {
+
+    List<Event> findByTanggalBetweenOrderByTanggalAsc(
+            LocalDate awal,
+            LocalDate akhir);
 
 }
