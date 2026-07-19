@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
 
-        locale: 'id',
+    locale: 'id',
 
     buttonText: {
         today: 'Hari Ini',
@@ -23,42 +23,26 @@ document.addEventListener('DOMContentLoaded', function () {
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
 
-        selectable: true,
-        navLinks: true,
+    selectable: true,
+    navLinks: true,
 
-        dateClick: function (info) {
-            alert('Tanggal dipilih: ' + info.dateStr);
-        },
+    events: "/api/events",
 
-        eventClick: function (info) {
-            alert(
-                'Event: ' +
-                info.event.title +
-                '\nTanggal: ' +
-                info.event.start.toLocaleDateString('id-ID')
-            );
-        },
+    dateClick(info) {
+        alert("Tanggal dipilih : " + info.dateStr);
+    },
 
-        events: [
-            {
-                title: 'Workshop UI/UX Design',
-                start: '2026-07-15'
-            },
-            {
-                title: 'Seminar Artificial Intelligence',
-                start: '2026-07-20'
-            },
-            {
-                title: 'Leadership Camp',
-                start: '2026-07-25'
-            },
-            {
-                title: 'Workshop Web Development',
-                start: '2026-07-14'
-            }
-        ]
+    eventClick(info) {
 
-    });
+        alert(
+            "Event : " + info.event.title +
+            "\nTanggal : " +
+            info.event.start.toLocaleDateString("id-ID")
+        );
+
+    }
+
+});
 
     calendar.render();
 

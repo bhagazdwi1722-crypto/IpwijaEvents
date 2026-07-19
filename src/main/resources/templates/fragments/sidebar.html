@@ -1,94 +1,99 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Fragment</title>
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+
 <body>
 
-    <div th:fragment="sidebar">
+<div th:fragment="sidebar">
 
-        <div class="brand">
-            <i class="ti ti-calendar-event"></i>
-            <span>Ganesha Event Connect</span>
+    <!-- BRAND -->
+    <div class="brand">
+
+        <img th:src="@{/images/1519.jpg}"
+             src="/images/1519.jpg"
+             alt="Logo IPWIJA"
+             class="brand-logo">
+
+        <div class="brand-text">
+            <h3>Ipwija Events</h3>
+            <span>Universitas IPWIJA</span>
         </div>
-
-        <div class="nav-group-label">Menu Utama</div>
-
-        <nav class="nav">
-
-            <a class="nav-item" th:href="@{/dashboard}">
-                <i class="ti ti-layout-dashboard"></i>
-                Dashboard
-            </a>
-
-            <a class="nav-item" th:href="@{/events}">
-                <i class="ti ti-calendar-event"></i>
-                Daftar Event
-            </a>
-
-            <a class="nav-item" th:href="@{/my-events}">
-                <i class="ti ti-ticket"></i>
-                Event Saya
-            </a>
-
-            <a class="nav-item" th:href="@{/calendar}">
-                <i class="ti ti-calendar"></i>
-                Kalender Event
-            </a>
-
-        </nav>
-
-
-        <div class="nav-group-label">Aktivitas</div>
-
-        <nav class="nav">
-
-            <a class="nav-item" th:href="@{/attendance}">
-                <i class="ti ti-qrcode"></i>
-                Absensi
-            </a>
-
-            <a class="nav-item" th:href="@{/certificate}">
-                <i class="ti ti-certificate"></i>
-                Sertifikat
-            </a>
-
-            <a class="nav-item" th:href="@{/notification}">
-                <i class="ti ti-bell"></i>
-                Notifikasi
-            </a>
-
-        </nav>
-
-
-        <div class="nav-group-label">Akun</div>
-
-        <nav class="nav">
-
-            <a class="nav-item" th:href="@{/profile}">
-                <i class="ti ti-user-circle"></i>
-                Profil Saya
-            </a>
-
-            <a class="nav-item" th:href="@{/settings}">
-                <i class="ti ti-settings"></i>
-                Pengaturan
-            </a>
-
-            <a class="nav-item" th:href="@{/help}">
-                <i class="ti ti-help-circle"></i>
-                Bantuan
-            </a>
-
-
-            <!-- Logout menjalankan fungsi logout -->
-            <a class="nav-item" th:href="@{/logout}">
-                <i class="ti ti-logout"></i>
-                Logout
-            </a>
-
-        </nav>
 
     </div>
 
-</body>
+    <!-- MENU UTAMA -->
+    <div class="nav-group-label">MENU UTAMA</div>
 
+    <nav class="nav">
+
+        <a class="nav-item" th:href="@{/dashboard}">
+            <i class="bi bi-grid-1x2-fill"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a class="nav-item" th:href="@{/events}">
+            <i class="bi bi-calendar-event-fill"></i>
+            <span>Daftar Event</span>
+        </a>
+
+        <a class="nav-item" th:href="@{/my-events}">
+            <i class="bi bi-ticket-perforated-fill"></i>
+            <span>Event Saya</span>
+        </a>
+
+        <a class="nav-item" th:href="@{/calendar}">
+            <i class="bi bi-calendar3"></i>
+            <span>Kalender Event</span>
+        </a>
+
+    </nav>
+
+    <!-- AKTIVITAS -->
+    <div class="nav-group-label">AKTIVITAS</div>
+
+    <nav class="nav">
+
+        <a class="nav-item" th:href="@{/attendance}">
+            <i class="bi bi-qr-code-scan"></i>
+            <span>Absensi</span>
+        </a>
+
+        <a class="nav-item" th:href="@{/certificate}">
+            <i class="bi bi-award-fill"></i>
+            <span>Sertifikat</span>
+        </a>
+
+    </nav>
+
+    <!-- AKUN -->
+    <div class="nav-group-label">AKUN</div>
+
+    <nav class="nav">
+
+        <a class="nav-item" th:href="@{/profile}">
+            <i class="bi bi-person-circle"></i>
+            <span>Profil Saya</span>
+        </a>
+
+        <a class="nav-item" th:href="@{/settings}">
+            <i class="bi bi-gear-fill"></i>
+            <span>Pengaturan</span>
+        </a>
+
+        <a class="nav-item logout" th:href="@{/logout}">
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+
+    </nav>
+
+</div>
+
+</body>
 </html>

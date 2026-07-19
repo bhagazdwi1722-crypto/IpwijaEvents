@@ -4,102 +4,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Saya - Ganesha Event Connect</title>
+    <title>Event Saya - Ipwija Events</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 
 <body>
 
-<div class="app">
+    <div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div th:replace="fragments/sidebar :: sidebar"></div>
-    </aside>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div th:replace="fragments/sidebar :: sidebar"></div>
+        </aside>
 
-    <!-- MAIN -->
-    <div class="main">
+        <!-- MAIN -->
+        <div class="main">
 
-        <!-- CONTENT -->
-        <main class="content">
+            <!-- CONTENT -->
+            <main class="content">
 
-            <div class="page-title">
-                <h2>Event Saya</h2>
-                <p>Daftar event yang telah Anda ikuti.</p>
-            </div>
+                <div class="page-title">
+                    <h2>Event Saya</h2>
+                    <p>Daftar event yang telah Anda ikuti.</p>
+                </div>
 
-            <div class="my-event-list">
+                <div class="my-event-list">
 
-                <div class="my-event-card">
-                    <div class="event-left">
+                    <div class="my-event-card" th:each="registration : ${registrations}">
 
-                        <div class="event-icon">
-                            <i class="ti ti-palette"></i>
+                        <!-- Poster -->
+                        <div class="event-poster">
+
+                            <img th:src="@{'/uploads/poster/' + ${registration.event.poster}}" alt="Poster Event">
+
                         </div>
 
-                        <div>
-                            <h3>Workshop UI/UX Design</h3>
+                        <!-- Detail -->
+                        <div class="event-content">
 
-                            <p>
-                                <i class="ti ti-calendar"></i>
-                                15 Juli 2026
-                            </p>
+                            <span class="event-category" th:text="${registration.event.kategori}">
+                            </span>
 
-                            <p>
-                                <i class="ti ti-map-pin"></i>
-                                Zoom Meeting
-                            </p>
+                            <h3 th:text="${registration.event.namaEvent}">
+                            </h3>
+
+                            <div class="event-info">
+
+                                <p>
+                                    <i class="ti ti-calendar"></i>
+
+                                    <span th:text="${#temporals.format(registration.event.tanggal,'dd MMM yyyy')}">
+                                    </span>
+
+                                </p>
+
+                                <p>
+                                    <i class="ti ti-clock"></i>
+
+                                    <span
+                                        th:text="${registration.event.jamMulai + ' - ' + registration.event.jamSelesai}">
+                                    </span>
+
+                                </p>
+
+                                <p>
+                                    <i class="ti ti-map-pin"></i>
+
+                                    <span th:text="${registration.event.lokasi}">
+                                    </span>
+
+                                </p>
+
+                            </div>
+
+                            <div class="event-benefit">
+
+                                <strong>Benefit</strong>
+
+                                <p th:text="${registration.event.benefit}">
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Status -->
+                        <div class="event-action">
+
+                            <span th:class="${registration.status == 'SELESAI'} ? 'status success' : 'status waiting'"
+                                th:text="${registration.status}">
+                            </span>
+
+                            <a th:if="${registration.status != 'SELESAI'}" th:href="@{/attendance}" class="detail-btn">
+
+                                Absen Event
+
+                            </a>
+
+                            <button th:if="${registration.status == 'SELESAI'}" type="button" class="detail-btn selesai"
+                                onclick="eventSelesai()">
+
+                                <i class="ti ti-circle-check"></i>
+                                Event Selesai
+
+                            </button>
+
                         </div>
 
                     </div>
 
-                    <span class="status success">
-                        Terdaftar
-                    </span>
                 </div>
 
-                <div class="my-event-card">
-                    <div class="event-left">
+                <!-- Jika belum ada event -->
 
-                        <div class="event-icon">
-                            <i class="ti ti-brain"></i>
-                        </div>
+                <div class="empty-state" th:if="${#lists.isEmpty(registrations)}">
 
-                        <div>
-                            <h3>Seminar Artificial Intelligence</h3>
+                    <i class="ti ti-calendar-off"></i>
 
-                            <p>
-                                <i class="ti ti-calendar"></i>
-                                20 Juli 2026
-                            </p>
+                    <h2>Belum Ada Event</h2>
 
-                            <p>
-                                <i class="ti ti-map-pin"></i>
-                                Auditorium Kampus
-                            </p>
-                        </div>
+                    <p>Anda belum mendaftar event apapun.</p>
 
-                    </div>
-
-                    <span class="status waiting">
-                        Menunggu Absensi
-                    </span>
                 </div>
 
-            </div>
+            </main>
 
-        </main>
+        </div>
 
     </div>
 
-</div>
-
+    <script>
+        function eventSelesai() {
+            alert("Anda sudah mengikuti event ini, silakan pilih event lain.");
+        }
+    </script>
 </body>
+
 </html>

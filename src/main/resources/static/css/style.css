@@ -492,16 +492,24 @@ a {
 }
 
 .event-thumb {
-  width: 88px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 12px;
+  overflow: hidden;
   flex-shrink: 0;
-  background: linear-gradient(135deg, #4467E8, #83A3F6);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-size: 22px;
+
+  background: #f3f4f6;
+}
+
+.event-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
 }
 
 .event-thumb.alt {
@@ -887,146 +895,6 @@ a {
   }
 }
 
-/* ===== Halaman Daftar Event ===== */
-
-:root {
-  --white: #ffffff;
-  --text-dark: #111827;
-  --text-muted: #6b7280;
-
-  --border-soft: #e5e7eb;
-
-  --radius-lg: 24px;
-
-  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 16px 32px rgba(15, 23, 42, 0.12);
-
-  --blue-500: #3b82f6;
-  --blue-grad: linear-gradient(135deg,
-      #2563eb,
-      #4f46e5);
-}
-
-/* ===== Halaman Daftar Event ===== */
-
-.page-title {
-  margin-bottom: 28px;
-}
-
-.page-title h2 {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 6px;
-}
-
-.page-title p {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-.event-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 28px;
-}
-
-.event-card {
-  background: var(--white);
-  border-radius: 22px;
-  overflow: hidden;
-  border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-sm);
-  transition: .3s ease;
-  padding: 0;
-}
-
-.event-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-md);
-}
-
-/* ===== POSTER EVENT ===== */
-
-.event-card img {
-  width: 100%;
-  height: 340px;
-  /* Poster lebih besar */
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-/* Jika poster yang diupload vertikal gunakan ini */
-/*
-.event-card img{
-    width:100%;
-    aspect-ratio:3/4;
-    object-fit:cover;
-    display:block;
-}
-*/
-
-.event-content {
-  padding: 22px;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  background: #E7EDFD;
-  color: var(--blue-500);
-  padding: 7px 15px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-
-.event-content h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-  line-height: 1.4;
-}
-
-.event-content p {
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 18px;
-}
-
-.event-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-muted);
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-
-.btn {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 22px;
-  padding: 14px 20px;
-  border-radius: 14px;
-  background: var(--blue-grad);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  transition: .25s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(37, 99, 235, .28);
-}
-
 /* ===== Halaman Event Saya ===== */
 .my-event-list {
   display: flex;
@@ -1234,4 +1102,266 @@ a {
 .btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(41, 73, 214, 0.25);
+}
+
+/* ==========================
+   MY EVENT
+========================== */
+
+.my-event-list {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+
+}
+
+.my-event-card {
+
+  background: #fff;
+
+  border-radius: 22px;
+
+  padding: 22px;
+
+  display: flex;
+
+  gap: 24px;
+
+  align-items: center;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+
+  transition: .3s;
+
+}
+
+.my-event-card:hover {
+
+  transform: translateY(-4px);
+
+}
+
+.event-poster {
+  width: 180px;
+  height: 250px;
+  background: #f8fafc;
+  border-radius: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.event-content {
+
+  flex: 1;
+
+}
+
+.event-category {
+
+  display: inline-block;
+
+  background: #dbeafe;
+
+  color: #2563eb;
+
+  padding: 5px 14px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+
+  margin-bottom: 12px;
+
+}
+
+.event-content h3 {
+
+  font-size: 26px;
+
+  margin-bottom: 18px;
+
+}
+
+.event-info {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+}
+
+.event-info p {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #64748b;
+
+}
+
+.event-benefit {
+
+  background: #f8fafc;
+
+  border-radius: 15px;
+
+  padding: 15px;
+
+}
+
+.event-benefit strong {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+}
+
+.event-action {
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  align-items: flex-end;
+
+  gap: 20px;
+
+}
+
+.status {
+
+  padding: 8px 18px;
+
+  border-radius: 999px;
+
+  font-weight: 600;
+
+}
+
+.waiting {
+
+  background: #fef3c7;
+
+  color: #b45309;
+
+}
+
+.success {
+
+  background: #dcfce7;
+
+  color: #15803d;
+
+}
+
+.detail-btn {
+
+  background: #2563eb;
+
+  color: white;
+
+  padding: 12px 20px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+}
+
+.detail-btn:hover {
+
+  background: #1d4ed8;
+
+}
+
+.empty-state {
+
+  text-align: center;
+
+  padding: 80px 20px;
+
+  color: #94a3b8;
+
+}
+
+.empty-state i {
+
+  font-size: 80px;
+
+  margin-bottom: 20px;
+
+}
+
+/* ===== Halaman Notif ===== */
+.notif-message {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.notif-message strong {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.notif-dot {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #eef4ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.notif-dot i {
+  font-size: 22px;
+}
+
+
+.notif-count {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: #ef4444;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
 }

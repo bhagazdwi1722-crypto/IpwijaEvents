@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalender Event - Ganesha Event Connect</title>
+    <title>Kalender Event - Ipwija Events</title>
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,149 +13,129 @@
         rel="stylesheet">
 
     <!-- Tabler Icons -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
 
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/sidebar.css">
 
     <!-- FullCalendar -->
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.css"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="app">
+    <div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div th:replace="fragments/sidebar :: sidebar"></div>
-    </aside>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div th:replace="fragments/sidebar :: sidebar"></div>
+        </aside>
 
-    <!-- MAIN -->
-    <div class="main">
+        <!-- MAIN -->
+        <div class="main">
 
-        <!-- CONTENT -->
-        <main class="content">
+            <!-- CONTENT -->
+            <main class="content">
 
-            <!-- PAGE TITLE -->
-            <div class="page-title">
-                <h2>Kalender Event</h2>
-                <p>
-                    Lihat seluruh jadwal seminar,
-                    workshop, dan kegiatan kampus.
-                </p>
-            </div>
-
-            <!-- PANEL KALENDER -->
-            <div class="panel">
-                <div id="calendar"></div>
-            </div>
-
-            <!-- PANEL EVENT BULAN INI -->
-            <div class="panel">
-
-                <div class="panel-head">
-                    <h2>Event Bulan Ini</h2>
-                    <span class="link">Lihat Semua</span>
+                <!-- PAGE TITLE -->
+                <div class="page-title">
+                    <h2>Kalender Event</h2>
+                    <p>
+                        Lihat seluruh jadwal seminar,
+                        workshop, dan kegiatan kampus.
+                    </p>
                 </div>
 
-                <!-- Event 1 -->
-                <div class="event-row">
-                    <div class="event-thumb">
-                        <i class="ti ti-code"></i>
+                <!-- PANEL KALENDER -->
+                <div class="panel">
+                    <div id="calendar"></div>
+                </div>
+
+                <!-- PANEL EVENT BULAN INI -->
+                <div class="panel">
+
+                    <div class="panel-head">
+                        <h2>Event Bulan Ini</h2>
+
+                        <a th:href="@{/events}" class="link">
+                            Lihat Semua
+                        </a>
                     </div>
 
-                    <div class="event-info">
-                        <h3>Workshop Web Development Modern</h3>
+                    <!-- Jika tidak ada event -->
+                    <div th:if="${#lists.isEmpty(eventsBulanIni)}"
+                        style="text-align:center;padding:35px;color:#94a3b8;">
 
-                        <div class="event-meta">
-                            <span>
-                                <i class="ti ti-calendar"></i>
-                                14 Jul 2026, 09.00
-                            </span>
+                        <i class="ti ti-calendar-off" style="font-size:40px;margin-bottom:10px;"></i>
 
-                            <span>
-                                <i class="ti ti-map-pin"></i>
-                                Aula Gedung Rektorat
-                            </span>
+                        <p>Tidak ada event terbaru untuk bulan ini.</p>
+
+                    </div>
+
+                    <!-- Jika ada event -->
+                    <div th:each="event : ${eventsBulanIni}" class="event-row">
+
+                        <div class="event-thumb">
+                            <i class="ti ti-calendar-event"></i>
                         </div>
-                    </div>
 
-                    <span class="badge terdaftar">
-                        Terdaftar
-                    </span>
-                </div>
+                        <div class="event-info">
 
-                <!-- Event 2 -->
-                <div class="event-row">
-                    <div class="event-thumb alt">
-                        <i class="ti ti-presentation"></i>
-                    </div>
+                            <h3 th:text="${event.namaEvent}">
+                                Nama Event
+                            </h3>
 
-                    <div class="event-info">
-                        <h3>Seminar Artificial Intelligence</h3>
+                            <div class="event-meta">
 
-                        <div class="event-meta">
-                            <span>
-                                <i class="ti ti-calendar"></i>
-                                20 Jul 2026, 13.00
-                            </span>
+                                <span>
+                                    <i class="ti ti-calendar"></i>
 
-                            <span>
-                                <i class="ti ti-map-pin"></i>
-                                Auditorium Kampus
-                            </span>
+                                    <span th:text="${#temporals.format(event.tanggal,'dd MMM yyyy')}"></span>
+
+                                    |
+
+                                    <span th:text="${event.jamMulai}"></span>
+                                </span>
+
+                                <span>
+                                    <i class="ti ti-map-pin"></i>
+
+                                    <span th:text="${event.lokasi}"></span>
+                                </span>
+
+                            </div>
+
                         </div>
+
+                        <span class="badge" th:classappend="${
+                event.tanggal.isBefore(T(java.time.LocalDate).now()) ? ' selesai' :
+                (event.tanggal.isEqual(T(java.time.LocalDate).now()) ? ' terdaftar' : ' menunggu')
+              }">
+
+                            <span th:text="${
+                event.tanggal.isBefore(T(java.time.LocalDate).now()) ? 'Selesai' :
+                (event.tanggal.isEqual(T(java.time.LocalDate).now()) ? 'Berlangsung' : 'Akan Datang')
+            }"></span>
+
+                        </span>
+
                     </div>
 
-                    <span class="badge menunggu">
-                        Menunggu
-                    </span>
                 </div>
 
-                <!-- Event 3 -->
-                <div class="event-row">
-                    <div class="event-thumb alt2">
-                        <i class="ti ti-users-group"></i>
-                    </div>
+            </main>
 
-                    <div class="event-info">
-                        <h3>Leadership Camp Organisasi Mahasiswa</h3>
-
-                        <div class="event-meta">
-                            <span>
-                                <i class="ti ti-calendar"></i>
-                                25 Jul 2026, 08.00
-                            </span>
-
-                            <span>
-                                <i class="ti ti-map-pin"></i>
-                                Villa Training Center
-                            </span>
-                        </div>
-                    </div>
-
-                    <span class="badge selesai">
-                        Selesai
-                    </span>
-                </div>
-
-            </div>
-
-        </main>
+        </div>
 
     </div>
 
-</div>
+    <!-- FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
 
-<!-- FullCalendar -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
-
-<!-- JS Kalender -->
-<script src="/js/calendar.js"></script>
+    <!-- JS Kalender -->
+    <script src="/js/calendar.js"></script>
 
 </body>
+
 </html>

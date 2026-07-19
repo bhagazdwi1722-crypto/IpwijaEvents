@@ -2,121 +2,164 @@
 <html lang="id" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Profil Saya - Ganesha Event Connect</title>
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
 
-    <!-- Tabler Icons -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/profile.css">
+
 </head>
 
 <body>
 
-<div class="app">
+    <div class="app">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-        <div th:replace="fragments/sidebar :: sidebar"></div>
-    </aside>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div th:replace="fragments/sidebar :: sidebar"></div>
+        </aside>
 
-    <!-- MAIN -->
-    <div class="main">
+        <!-- MAIN -->
+        <div class="main">
 
-        <!-- TOPBAR -->
-        <header class="topbar">
+            <main class="content">
 
-            <div class="search-box">
-                <i class="ti ti-search"></i>
-                <input type="text"
-                       placeholder="Cari informasi profil...">
-            </div>
+                <div class="page-title">
 
-            <div class="top-actions">
+                    <h2>Profil Saya</h2>
 
-                <div class="icon-btn">
-                    <i class="ti ti-bell"></i>
-                    <span class="dot"></span>
+                    <p>
+                        Informasi akun mahasiswa yang sedang digunakan.
+                    </p>
+
                 </div>
 
-                <div class="profile-chip">
-                    <div class="avatar"></div>
+                <div class="panel profile-card">
 
-                    <div>
-                        <div class="pname">Adi Pratama</div>
-                        <div class="prole">Mahasiswa</div>
+                    <!-- Header Profil -->
+                    <div class="profile-header">
+
+                        <div class="profile-photo" th:text="${#strings.substring(currentUser.nama,0,1)}">
+                            A
+                        </div>
+
+                        <h2 th:text="${currentUser.nama}">
+                            Adi Pratama
+                        </h2>
+
+                        <p class="profile-email">
+                            <i class="bi bi-envelope-fill"></i>
+                            <span th:text="${currentUser.email}"></span>
+                        </p>
+
+                        <span class="role-chip"
+                            th:text="${currentUser.role == 'ADMIN'} ? 'Administrator' : 'Mahasiswa Aktif'">
+                        </span>
+
                     </div>
 
-                    <i class="ti ti-chevron-down"
-                       style="font-size:14px;color:var(--text-muted);">
-                    </i>
-                </div>
+                    <hr>
 
-            </div>
+                    <!-- Detail Profil -->
+                    <div class="profile-detail">
 
-        </header>
+                        <div class="detail-card">
 
-        <!-- CONTENT -->
-        <main class="content">
+                            <div class="detail-icon">
+                                <i class="bi bi-person-vcard-fill"></i>
+                            </div>
 
-            <div class="page-title">
-                <h2>Profil Saya</h2>
-                <p>Informasi akun mahasiswa.</p>
-            </div>
+                            <div>
 
-            <div class="panel profile-card">
+                                <small>NIM</small>
 
-                <div class="profile-photo">
-                    AP
-                </div>
+                                <strong th:text="${currentUser.nim}">
+                                    220102045
+                                </strong>
 
-                <h3>Adi Pratama</h3>
+                            </div>
 
-                <div class="pmail">
-                    adi@gmail.com
-                </div>
+                        </div>
 
-                <div class="profile-detail">
+                        <div class="detail-card">
 
-                    <div class="pd-row">
-                        <span class="k">NIM</span>
-                        <span class="v">202410001</span>
+                            <div class="detail-icon">
+                                <i class="bi bi-mortarboard-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <small>Program Studi</small>
+
+                                <strong th:text="${currentUser.prodi}">
+                                    Teknik Informatika
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                        <div class="detail-card">
+
+                            <div class="detail-icon">
+                                <i class="bi bi-building-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <small>Kelas</small>
+
+                                <strong th:text="${currentUser.kelas}">
+                                    TI-3B
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                        <div class="detail-card">
+
+                            <div class="detail-icon">
+                                <i class="bi bi-person-badge-fill"></i>
+                            </div>
+
+                            <div>
+
+                                <small>Role</small>
+
+                                <strong th:text="${currentUser.role}">
+                                    Mahasiswa
+                                </strong>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
-                    <div class="pd-row">
-                        <span class="k">Program Studi</span>
-                        <span class="v">Informatika</span>
-                    </div>
-
-                    <div class="pd-row">
-                        <span class="k">Kelas</span>
-                        <span class="v">TI-4A</span>
-                    </div>
-
                 </div>
 
-                <button class="btn">
-                    <i class="ti ti-edit"></i>
-                    Edit Profil
-                </button>
+            </main>
 
-            </div>
-
-        </main>
+        </div>
 
     </div>
 
-</div>
-
 </body>
+
 </html>

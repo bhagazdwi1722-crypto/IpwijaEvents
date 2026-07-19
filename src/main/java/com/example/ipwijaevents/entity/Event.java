@@ -1,8 +1,14 @@
 package com.example.ipwijaevents.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "events")
@@ -44,12 +50,23 @@ public class Event {
 
     private String poster;
 
+    @Column(name = "qr_code")
+    private String qrCode;
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
     public Event() {
     }
 
     public Event(Long id, String namaEvent, String kategori, String lokasi, LocalDate tanggal,
-                 LocalTime jamMulai, LocalTime jamSelesai, Integer kuota, Double harga,
-                 String deskripsi, String benefit, String poster) {
+            LocalTime jamMulai, LocalTime jamSelesai, Integer kuota, Double harga,
+            String deskripsi, String benefit, String poster) {
 
         this.id = id;
         this.namaEvent = namaEvent;

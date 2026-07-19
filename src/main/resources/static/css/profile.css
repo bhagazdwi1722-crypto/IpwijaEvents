@@ -1,0 +1,157 @@
+.profile-card{
+    padding:32px;
+    border-radius:24px;
+    background:#fff;
+    box-shadow:0 10px 30px rgba(15,23,42,.08);
+}
+
+.profile-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+
+    padding:30px 0;
+    margin-bottom:30px;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.profile-photo{
+    width:110px;
+    height:110px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:42px;
+    font-weight:700;
+
+    margin-bottom:18px;
+}
+
+.profile-info{
+    flex:1;
+}
+
+.profile-info h2{
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+    color:#0f172a;
+}
+
+.profile-info p{
+    margin:8px 0 14px;
+    color:#64748b;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+}
+
+.profile-info p i{
+    color:#2563eb;
+}
+
+.role-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 16px;
+    border-radius:999px;
+    background:#dcfce7;
+    color:#15803d;
+    font-size:13px;
+    font-weight:600;
+}
+
+.profile-card hr{
+    border:none;
+    height:1px;
+    background:#e5e7eb;
+    margin:24px 0;
+}
+
+.profile-detail{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.detail-card{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:18px;
+    padding:18px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    transition:.25s ease;
+}
+
+.detail-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(15,23,42,.08);
+}
+
+.detail-icon{
+    width:54px;
+    height:54px;
+    border-radius:14px;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.detail-card small{
+    display:block;
+    margin-bottom:4px;
+    color:#64748b;
+    font-size:12px;
+    font-weight:500;
+}
+
+.detail-card strong{
+    color:#0f172a;
+    font-size:16px;
+    font-weight:700;
+    word-break:break-word;
+}
+
+@media (max-width:768px){
+
+    .profile-header{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .profile-info p{
+        justify-content:center;
+    }
+
+    .profile-detail{
+        grid-template-columns:1fr;
+    }
+
+    .profile-photo{
+        width:90px;
+        height:90px;
+        font-size:32px;
+    }
+
+    .profile-info h2{
+        font-size:24px;
+    }
+}
